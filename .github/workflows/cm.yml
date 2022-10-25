@@ -30,7 +30,13 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Start a new CM build
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            curl -H "Content-Type: application/json" \
+             -H "x-auth-token: ${{ secrets.CM_TOKEN }}" \
+             --data '{
+               "appId": "6315a13cd08d3f4a6708a798",
+               "workflowId": "iOS signing method-1",
+               "branch": "develop"
+             }' \
+             https://api.codemagic.io/builds
