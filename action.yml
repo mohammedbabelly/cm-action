@@ -18,13 +18,13 @@ inputs:
 outputs:
   build-id:
     description: "The started build Id"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+    value: ${{ steps.build-cm.outputs.random-number }}
 runs:
   using: "composite"
   steps:
     - run: echo BuildId ${{ inputs.app-id }}.
       shell: bash
-    - id: build-cm-build
+    - id: build-cm
       run: |
         echo "build-id=$(echo $(curl -H "Content-Type: application/json" -H "x-auth-token: ${{ inputs.cm-token }}" --data '{ \
         "appId": "${{ inputs.app-id }}", \
